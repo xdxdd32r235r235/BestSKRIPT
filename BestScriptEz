@@ -45,7 +45,7 @@ print("MainFrame created")
 
 -- Title
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Text = "CFrame Move & Fly GUI + Auto Hit"
+titleLabel.Text = "RageHub By s3reths"
 titleLabel.Size = UDim2.new(1, 0, 0, 25)
 titleLabel.BackgroundTransparency = 1
 titleLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
@@ -344,7 +344,7 @@ antiFallDamageToggle.MouseButton1Click:Connect(toggleAntiFallDamage)
 
 -- Tooltip toggles
 deathTpQuestion.MouseButton1Click:Connect(function()
-    if tooltip.Visible and tooltipText.Text == "Death TP:\nScroll wheel click saves checkpoint.\nPress T to teleport back.\nTeleport on death." then
+    if tooltip.Visible and tooltipText.Text == "Death TP:\nScroll wheel click saves checkpoint.\nPress T to teleport back.\npress T the second you die (only from void)." then
         tooltip.Visible = false
     else
         tooltip.Visible = true
@@ -362,11 +362,11 @@ autoHitQuestion.MouseButton1Click:Connect(function()
 end)
 
 criticalHitQuestion.MouseButton1Click:Connect(function()
-    if tooltip.Visible and tooltipText.Text == "Critical Hit:\nSimulates falling when attacking to trigger critical hits." then
+    if tooltip.Visible and tooltipText.Text == "Critical Hit:\nAuto Criticals kinda buggy tho but if you combine it with kill aura you will be unstoppable." then
         tooltip.Visible = false
     else
         tooltip.Visible = true
-        tooltipText.Text = "Critical Hit:\nSimulates falling when attacking to trigger critical hits."
+        tooltipText.Text = "Critical Hit:\nAuto Criticals kinda buggy tho but if you combine it with kill aura you will be unstoppablez."
     end
 end)
 
