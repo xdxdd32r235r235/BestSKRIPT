@@ -12,7 +12,7 @@ local cframeMoveEnabled = false
 local deathTpEnabled = false
 local autoHitEnabled = false
 local criticalHitEnabled = false
-local antiFallDamageEnabled = false
+local antiFallDamageEnabled = false -- New variable for anti fall damage toggle
 local cframeSpeed = 0.2
 local checkpointCFrame = nil
 
@@ -20,21 +20,12 @@ local checkpointCFrame = nil
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "SpeedFlyGui"
 screenGui.ResetOnSpawn = false
--- Try CoreGui first, fall back to PlayerGui if needed
-local success, err = pcall(function()
-    screenGui.Parent = game:GetService("CoreGui")
-end)
-if success then
-    print("ScreenGui parented to CoreGui")
-else
-    print("Failed to parent to CoreGui: ", err)
-    screenGui.Parent = plr.PlayerGui
-    print("ScreenGui parented to PlayerGui")
-end
+screenGui.Parent = game:GetService("CoreGui")
+print("ScreenGui created and parented to CoreGui")
 
 -- Main Frame
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 280, 0, 300)
+mainFrame.Size = UDim2.new(0, 280, 0, 300) -- Increased height for new button
 mainFrame.Position = UDim2.new(0.5, -140, 0.5, -150)
 mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
 mainFrame.BorderSizePixel = 0
@@ -45,14 +36,13 @@ print("MainFrame created")
 
 -- Title
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Text = "RageHub By s3reths"
+titleLabel.Text = "CFrame Move & Fly GUI + Auto Hit"
 titleLabel.Size = UDim2.new(1, 0, 0, 25)
 titleLabel.BackgroundTransparency = 1
 titleLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
 titleLabel.Font = Enum.Font.SourceSansBold
 titleLabel.TextSize = 18
 titleLabel.Parent = mainFrame
-print("TitleLabel created")
 
 -- CFrame Speed label
 local speedLabel = Instance.new("TextLabel")
@@ -65,7 +55,6 @@ speedLabel.Font = Enum.Font.SourceSans
 speedLabel.TextSize = 15
 speedLabel.TextXAlignment = Enum.TextXAlignment.Left
 speedLabel.Parent = mainFrame
-print("SpeedLabel created")
 
 -- Speed input textbox
 local speedInput = Instance.new("TextBox")
@@ -79,7 +68,6 @@ speedInput.BorderSizePixel = 0
 speedInput.Font = Enum.Font.SourceSans
 speedInput.TextSize = 16
 speedInput.Parent = mainFrame
-print("SpeedInput created")
 
 -- CFrame Move toggle button
 local cframeToggle = Instance.new("TextButton")
@@ -91,7 +79,6 @@ cframeToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 cframeToggle.Font = Enum.Font.SourceSansBold
 cframeToggle.TextSize = 16
 cframeToggle.Parent = mainFrame
-print("CFrameToggle created")
 
 -- Fly Platform toggle button
 local flyToggle = Instance.new("TextButton")
@@ -103,7 +90,6 @@ flyToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 flyToggle.Font = Enum.Font.SourceSansBold
 flyToggle.TextSize = 16
 flyToggle.Parent = mainFrame
-print("FlyToggle created")
 
 -- Death TP toggle button
 local deathTpToggle = Instance.new("TextButton")
@@ -115,7 +101,6 @@ deathTpToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 deathTpToggle.Font = Enum.Font.SourceSansBold
 deathTpToggle.TextSize = 16
 deathTpToggle.Parent = mainFrame
-print("DeathTpToggle created")
 
 -- Question mark button next to Death TP
 local deathTpQuestion = Instance.new("TextButton")
@@ -127,7 +112,6 @@ deathTpQuestion.TextColor3 = Color3.fromRGB(255, 255, 255)
 deathTpQuestion.Font = Enum.Font.SourceSansBold
 deathTpQuestion.TextSize = 20
 deathTpQuestion.Parent = mainFrame
-print("DeathTpQuestion created")
 
 -- Auto Hit toggle button
 local autoHitToggle = Instance.new("TextButton")
@@ -139,7 +123,6 @@ autoHitToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 autoHitToggle.Font = Enum.Font.SourceSansBold
 autoHitToggle.TextSize = 16
 autoHitToggle.Parent = mainFrame
-print("AutoHitToggle created")
 
 -- Question mark button next to Auto Hit
 local autoHitQuestion = Instance.new("TextButton")
@@ -151,7 +134,6 @@ autoHitQuestion.TextColor3 = Color3.fromRGB(255, 255, 255)
 autoHitQuestion.Font = Enum.Font.SourceSansBold
 autoHitQuestion.TextSize = 20
 autoHitQuestion.Parent = mainFrame
-print("AutoHitQuestion created")
 
 -- Critical Hit toggle button
 local criticalHitToggle = Instance.new("TextButton")
@@ -163,7 +145,6 @@ criticalHitToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 criticalHitToggle.Font = Enum.Font.SourceSansBold
 criticalHitToggle.TextSize = 16
 criticalHitToggle.Parent = mainFrame
-print("CriticalHitToggle created")
 
 -- Question mark button next to Critical Hit
 local criticalHitQuestion = Instance.new("TextButton")
@@ -175,7 +156,6 @@ criticalHitQuestion.TextColor3 = Color3.fromRGB(255, 255, 255)
 criticalHitQuestion.Font = Enum.Font.SourceSansBold
 criticalHitQuestion.TextSize = 20
 criticalHitQuestion.Parent = mainFrame
-print("CriticalHitQuestion created")
 
 -- Anti Fall Damage toggle button
 local antiFallDamageToggle = Instance.new("TextButton")
@@ -187,7 +167,6 @@ antiFallDamageToggle.TextColor3 = Color3.fromRGB(230, 230, 255)
 antiFallDamageToggle.Font = Enum.Font.SourceSansBold
 antiFallDamageToggle.TextSize = 16
 antiFallDamageToggle.Parent = mainFrame
-print("AntiFallDamageToggle created")
 
 -- Question mark button next to Anti Fall Damage
 local antiFallDamageQuestion = Instance.new("TextButton")
@@ -199,17 +178,15 @@ antiFallDamageQuestion.TextColor3 = Color3.fromRGB(255, 255, 255)
 antiFallDamageQuestion.Font = Enum.Font.SourceSansBold
 antiFallDamageQuestion.TextSize = 20
 antiFallDamageQuestion.Parent = mainFrame
-print("AntiFallDamageQuestion created")
 
 -- Tooltip frame (hidden by default)
 local tooltip = Instance.new("Frame")
 tooltip.Size = UDim2.new(0, 260, 0, 120)
-tooltip.Position = UDim2.new(0, 10, 0, 300)
+tooltip.Position = UDim2.new(0, 10, 0, 300) -- Adjusted position for new button
 tooltip.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
 tooltip.BorderSizePixel = 0
 tooltip.Visible = false
 tooltip.Parent = mainFrame
-print("Tooltip created")
 
 local tooltipText = Instance.new("TextLabel")
 tooltipText.Size = UDim2.new(1, -10, 1, -10)
@@ -220,7 +197,6 @@ tooltipText.TextWrapped = true
 tooltipText.Font = Enum.Font.SourceSans
 tooltipText.TextSize = 14
 tooltipText.Parent = tooltip
-print("TooltipText created")
 
 -- Platform for flying
 local platform = Instance.new("Part")
@@ -237,37 +213,31 @@ local function toggleFly()
     flyEnabled = not flyEnabled
     platform.Transparency = flyEnabled and 0.5 or 1
     flyToggle.Text = "Fly Platform: " .. (flyEnabled and "ON (F)" or "OFF (F)")
-    print("Fly toggled: ", flyEnabled)
 end
 
 local function toggleCFrameMove()
     cframeMoveEnabled = not cframeMoveEnabled
     cframeToggle.Text = "CFrame Move: " .. (cframeMoveEnabled and "ON" or "OFF")
-    print("CFrame Move toggled: ", cframeMoveEnabled)
 end
 
 local function toggleDeathTP()
     deathTpEnabled = not deathTpEnabled
     deathTpToggle.Text = "Death TP: " .. (deathTpEnabled and "ON" or "OFF")
-    print("Death TP toggled: ", deathTpEnabled)
 end
 
 local function toggleAutoHit()
     autoHitEnabled = not autoHitEnabled
     autoHitToggle.Text = "Auto Hit: " .. (autoHitEnabled and "ON" or "OFF")
-    print("Auto Hit toggled: ", autoHitEnabled)
 end
 
 local function toggleCriticalHit()
     criticalHitEnabled = not criticalHitEnabled
     criticalHitToggle.Text = "Critical Hit: " .. (criticalHitEnabled and "ON" or "OFF")
-    print("Critical Hit toggled: ", criticalHitEnabled)
 end
 
 local function toggleAntiFallDamage()
     antiFallDamageEnabled = not antiFallDamageEnabled
     antiFallDamageToggle.Text = "Anti Fall Damage: " .. (antiFallDamageEnabled and "ON" or "OFF")
-    print("Anti Fall Damage toggled: ", antiFallDamageEnabled)
 end
 
 -- User input tracking
@@ -326,10 +296,8 @@ speedInput.FocusLost:Connect(function(enterPressed)
         if val and val > 0 then
             cframeSpeed = val
             speedInput.Text = tostring(cframeSpeed)
-            print("CFrame speed updated to: ", cframeSpeed)
         else
             speedInput.Text = tostring(cframeSpeed)
-            print("Invalid speed input, reverted to: ", cframeSpeed)
         end
     end
 end)
@@ -344,7 +312,7 @@ antiFallDamageToggle.MouseButton1Click:Connect(toggleAntiFallDamage)
 
 -- Tooltip toggles
 deathTpQuestion.MouseButton1Click:Connect(function()
-    if tooltip.Visible and tooltipText.Text == "Death TP:\nScroll wheel click saves checkpoint.\nPress T to teleport back.\npress T the second you die (only from void)." then
+    if tooltip.Visible and tooltipText.Text == "Death TP:\nScroll wheel click saves checkpoint.\nPress T to teleport back.\nTeleport on death." then
         tooltip.Visible = false
     else
         tooltip.Visible = true
@@ -362,11 +330,11 @@ autoHitQuestion.MouseButton1Click:Connect(function()
 end)
 
 criticalHitQuestion.MouseButton1Click:Connect(function()
-    if tooltip.Visible and tooltipText.Text == "Critical Hit:\nAuto Criticals kinda buggy tho but if you combine it with kill aura you will be unstoppable." then
+    if tooltip.Visible and tooltipText.Text == "Critical Hit:\nSimulates falling when attacking to trigger critical hits." then
         tooltip.Visible = false
     else
         tooltip.Visible = true
-        tooltipText.Text = "Critical Hit:\nAuto Criticals kinda buggy tho but if you combine it with kill aura you will be unstoppablez."
+        tooltipText.Text = "Critical Hit:\nSimulates falling when attacking to trigger critical hits."
     end
 end)
 
@@ -394,7 +362,6 @@ RunService.Heartbeat:Connect(function()
 
     if cframeMoveEnabled then
         local camera = workspace.CurrentCamera
-        if not camera then return end
         local moveDir = Vector3.new(0, 0, 0)
         if keys.W then moveDir = moveDir + camera.CFrame.LookVector end
         if keys.S then moveDir = moveDir - camera.CFrame.LookVector end
@@ -423,7 +390,6 @@ RunService.Heartbeat:Connect(function()
 
     local enemyNearby = false
     local camera = workspace.CurrentCamera
-    if not camera then return end
 
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= plr and player.Character then
@@ -445,28 +411,17 @@ RunService.Heartbeat:Connect(function()
 
     if enemyNearby then
         tool:Activate()
-        print("Auto Hit triggered!")
     end
 end)
 
 -- Critical Hit logic
 local function simulateFall()
     local character = plr.Character
-    local hum = character and character:FindFirstChild("Humanoid")
     local root = character and character:FindFirstChild("HumanoidRootPart")
-    if hum and root then
-        local originalState = hum:GetState()
-        local originalVelocity = root.Velocity
-        if originalState ~= Enum.HumanoidStateType.Landed then
-            hum:ChangeState(Enum.HumanoidStateType.Freefall)
-            root.Velocity = Vector3.new(originalVelocity.X, -1.5, originalVelocity.Z)
-            wait(0.01)
-            root.Velocity = Vector3.new(originalVelocity.X, 0, originalVelocity.Z)
-            hum:ChangeState(originalState)
-            print("Critical hit triggered with original float effect!")
-        else
-            print("Critical hit skipped: Player is grounded")
-        end
+    if root then
+        local velocity = root.Velocity
+        root.Velocity = Vector3.new(velocity.X, -1.5, velocity.Z)
+        print("Critical hit triggered!")
     end
 end
 
